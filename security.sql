@@ -73,6 +73,17 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
+-- Структура таблицы `code_questions` (контрольные вопросы для восстановления/проверки)
+--
+
+CREATE TABLE `code_questions` (
+  `id` int NOT NULL,
+  `id_user` int NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `answer` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
 -- Таблица для блокировки по логину (защита от перебора пароля)
 --
 
@@ -124,6 +135,13 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `code_questions`
+--
+
+ALTER TABLE `code_questions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -144,6 +162,13 @@ ALTER TABLE `news`
 --
 ALTER TABLE `users`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT для таблицы `code_questions`
+--
+
+ALTER TABLE `code_questions`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- Индексы и автоинкремент для таблицы `blocked_logins`

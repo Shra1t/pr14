@@ -73,6 +73,27 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
+-- Таблица для блокировки по логину (защита от перебора пароля)
+--
+
+CREATE TABLE `blocked_logins` (
+  `id` int NOT NULL,
+  `login` varchar(255) NOT NULL,
+  `attempts` int NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Таблица для блокировки по IP (защита от частых запросов)
+--
+
+CREATE TABLE `blocked_ips` (
+  `id` int NOT NULL,
+  `ip` varchar(45) NOT NULL,
+  `prelast_attempt` datetime DEFAULT NULL,
+  `last_attempt` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
 -- Дамп данных таблицы `users`
 --
 
@@ -123,6 +144,26 @@ ALTER TABLE `news`
 --
 ALTER TABLE `users`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- Индексы и автоинкремент для таблицы `blocked_logins`
+--
+
+ALTER TABLE `blocked_logins`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `blocked_logins`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- Индексы и автоинкремент для таблицы `blocked_ips`
+--
+
+ALTER TABLE `blocked_ips`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `blocked_ips`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
